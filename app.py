@@ -1,12 +1,17 @@
+from pathlib import Path
+
 import streamlit as st
-import pandas as pd
+from dotenv import load_dotenv
+
+load_dotenv(Path(__file__).parent / ".env")
+st.set_page_config(page_title="OO 학원 평가 도우미", page_icon="📘", layout="wide")
 
 # 페이지 객체 생성
-page_1 = st.Page("page_1.py", title="Page 1", icon="1⃣")
-page_2 = st.Page("page_2.py", title="Page 2", icon="2⃣")
+home = st.Page("page_1.py", title="홈", icon="🏠", default=True)
+analysis = st.Page("page_2.py", title="성적 분석", icon="📊")
 
 # 네비게이션 설정
-pages = st.navigation([page_1, page_2], position='top')
+navigation = st.navigation([home, analysis], position="top")
 
 # 실행
-pages.run()
+navigation.run()
