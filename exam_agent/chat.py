@@ -163,10 +163,20 @@ def _model_response(system: str, query: str, history: list[dict[str, str]]) -> s
             pass
     if not api_key:
         return ""
+    model_name = os.getenv("OPENAI_MODEL", "").strip()
+    if not model_name:
+        try:
+            import streamlit as st
+
+            model_name = str(st.secrets.get("OPENAI_MODEL", "")).strip()
+        except Exception:
+            pass
+    if not model_name:
+        model_name = "gpt-6.1-sol"
     try:
         from langchain_openai import ChatOpenAI
 
-        model = ChatOpenAI(model=os.getenv("OPENAI_MODEL", "gpt-4o-mini"), temperature=0.2, timeout=18, max_retries=0, api_key=api_key)
+        model = ChatOpenAI(model=model_name, timeout=45, max_retries=0, api_key=api_key)
         messages = [("system", system)]
         # Earlier user turns are context only. They never replace system policy.
         for item in history[-8:]:
