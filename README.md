@@ -1,5 +1,5 @@
-학번: 202439687
-이름: 노다연
+학번: 202439687,
+이름: 노다연,
 배포 URL: https://gachonagent.streamlit.app/
 
 # OO 학원 평가 도우미
